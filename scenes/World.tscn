@@ -1,16 +1,17 @@
-[gd_scene load_steps=13 format=2]
+[gd_scene load_steps=14 format=2]
 
 [ext_resource path="res://scenes/World.gd" type="Script" id=1]
 [ext_resource path="res://images/background.png" type="Texture" id=2]
 [ext_resource path="res://scenes/Background.gd" type="Script" id=3]
-[ext_resource path="res://scenes/Player.tscn" type="PackedScene" id=4]
-[ext_resource path="res://scenes/EnemySpawn.gd" type="Script" id=5]
-[ext_resource path="res://scenes/Thermometer.tscn" type="PackedScene" id=6]
-[ext_resource path="res://scenes/ProgressBar.tscn" type="PackedScene" id=7]
-[ext_resource path="res://scenes/Theme.tres" type="Theme" id=8]
-[ext_resource path="res://scenes/TemperatureLabel.gd" type="Script" id=9]
-[ext_resource path="res://scenes/State.gd" type="Script" id=10]
-[ext_resource path="res://scenes/Timer.gd" type="Script" id=11]
+[ext_resource path="res://scenes/Camera.gd" type="Script" id=4]
+[ext_resource path="res://scenes/Player.tscn" type="PackedScene" id=5]
+[ext_resource path="res://scenes/EnemySpawn.gd" type="Script" id=6]
+[ext_resource path="res://scenes/Thermometer.tscn" type="PackedScene" id=7]
+[ext_resource path="res://scenes/ProgressBar.tscn" type="PackedScene" id=8]
+[ext_resource path="res://scenes/Theme.tres" type="Theme" id=9]
+[ext_resource path="res://scenes/TemperatureLabel.gd" type="Script" id=10]
+[ext_resource path="res://scenes/State.gd" type="Script" id=11]
+[ext_resource path="res://scenes/Timer.gd" type="Script" id=12]
 
 [sub_resource type="Animation" id=1]
 
@@ -80,9 +81,9 @@ drag_margin_bottom = 0.2
 editor_draw_screen = true
 editor_draw_limits = false
 editor_draw_drag_margin = false
-_sections_unfolded = [ "Transform" ]
+script = ExtResource( 4 )
 
-[node name="Player" parent="." index="2" instance=ExtResource( 4 )]
+[node name="Player" parent="." index="2" instance=ExtResource( 5 )]
 
 editor/display_folded = true
 _sections_unfolded = [ "Transform" ]
@@ -109,17 +110,17 @@ process_mode = 1
 wait_time = 1.25
 one_shot = false
 autostart = true
-script = ExtResource( 5 )
+script = ExtResource( 6 )
 track_path = NodePath("../Player")
 
-[node name="Thermometer" parent="." index="4" instance=ExtResource( 6 )]
+[node name="Thermometer" parent="." index="4" instance=ExtResource( 7 )]
 
 position = Vector2( -63, -27 )
 z_index = 128
 _sections_unfolded = [ "Offset", "Region", "Transform", "Visibility", "Z Index" ]
 height = 25
 
-[node name="ProgressBar" parent="." index="5" instance=ExtResource( 7 )]
+[node name="ProgressBar" parent="." index="5" instance=ExtResource( 8 )]
 
 position = Vector2( -58, -25 )
 z_index = 128
@@ -144,13 +145,13 @@ mouse_filter = 2
 mouse_default_cursor_shape = 0
 size_flags_horizontal = 1
 size_flags_vertical = 1
-theme = ExtResource( 8 )
+theme = ExtResource( 9 )
 text = "99.99ºC"
 align = 2
 percent_visible = 1.0
 lines_skipped = 0
 max_lines_visible = -1
-script = ExtResource( 9 )
+script = ExtResource( 10 )
 _sections_unfolded = [ "Theme" ]
 
 [node name="State" type="Label" parent="." index="7"]
@@ -171,14 +172,14 @@ mouse_filter = 2
 mouse_default_cursor_shape = 0
 size_flags_horizontal = 1
 size_flags_vertical = 1
-theme = ExtResource( 8 )
+theme = ExtResource( 9 )
 text = "State"
 align = 2
 valign = 3
 percent_visible = 1.0
 lines_skipped = 0
 max_lines_visible = -1
-script = ExtResource( 10 )
+script = ExtResource( 11 )
 _sections_unfolded = [ "Grow Direction", "Visibility" ]
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="State" index="0"]
@@ -207,13 +208,13 @@ mouse_filter = 2
 mouse_default_cursor_shape = 0
 size_flags_horizontal = 1
 size_flags_vertical = 1
-theme = ExtResource( 8 )
+theme = ExtResource( 9 )
 text = "00:00.00"
 percent_visible = 1.0
 lines_skipped = 0
 max_lines_visible = -1
-script = ExtResource( 11 )
-_sections_unfolded = [ "Grow Direction", "Theme" ]
+script = ExtResource( 12 )
+_sections_unfolded = [ "Grow Direction", "Rect", "Size Flags" ]
 
 [connection signal="alarm" from="Player/Temperature" to="Background" method="_on_Temperature_alarm"]
 
@@ -228,6 +229,8 @@ _sections_unfolded = [ "Grow Direction", "Theme" ]
 [connection signal="end_alarm" from="Player/Temperature" to="Temperature" method="_on_Temperature_end_alarm"]
 
 [connection signal="end_alarm" from="Player/Temperature" to="State" method="_on_Temperature_end_alarm"]
+
+[connection signal="hit" from="Player/Health" to="Camera" method="_on_hit"]
 
 [connection signal="timeout" from="EnemySpawn" to="EnemySpawn" method="_on_timeout"]
 
