@@ -21,7 +21,6 @@ func _physics_process(delta):
 	rotation_degrees += rotation_velocity
 
 	if Input.is_action_pressed("fire"):
-		$Temperature.hit(-0.1)
 		$Turret.fire()
 
 

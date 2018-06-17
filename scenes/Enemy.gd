@@ -8,6 +8,7 @@ var direction
 var speed = 0
 var track_node
 var initial_direction
+var mode
 
 
 func _ready():
