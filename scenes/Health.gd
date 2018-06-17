@@ -8,6 +8,10 @@ signal died()
 var health = 100
 
 
+func _ready():
+	call_deferred('emit_signal', 'changed', health)
+
+
 func hit(life):
 	health = max(0, health - life)
 	emit_signal('changed', health)
