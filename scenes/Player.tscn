@@ -1,9 +1,10 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://scenes/Player.gd" type="Script" id=1]
 [ext_resource path="res://images/sprites.png" type="Texture" id=2]
 [ext_resource path="res://scenes/Shield.tscn" type="PackedScene" id=3]
 [ext_resource path="res://scenes/Turret.gd" type="Script" id=4]
+[ext_resource path="res://scenes/Temperature.gd" type="Script" id=5]
 
 [sub_resource type="RectangleShape2D" id=1]
 
@@ -62,4 +63,16 @@ wait_time = 0.2
 one_shot = false
 autostart = true
 
+[node name="Temperature" type="Node2D" parent="." index="5"]
 
+script = ExtResource( 5 )
+
+[connection signal="area_entered" from="Left Shield/Shield" to="." method="_on_Shield_area_entered"]
+
+[connection signal="area_entered" from="Right Shield/Shield" to="." method="_on_Shield_area_entered"]
+
+[connection signal="area_entered" from="Player" to="." method="_on_Player_area_entered"]
+
+
+[editable path="Left Shield"]
+[editable path="Right Shield"]
