@@ -63,6 +63,6 @@ _sections_unfolded = [ "Drawing", "Process Material" ]
 
 [connection signal="area_entered" from="Bullet" to="." method="_on_Bullet_area_entered"]
 
-[connection signal="screen_exited" from="VisibilityNotifier" to="." method="_on_VisibilityNotifier_screen_exited"]
+[connection signal="screen_exited" from="VisibilityNotifier" to="." method="queue_free" flags=3]
 
 
