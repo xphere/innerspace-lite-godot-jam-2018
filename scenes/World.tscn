@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=2]
+[gd_scene load_steps=12 format=2]
 
 [ext_resource path="res://scenes/World.gd" type="Script" id=1]
 [ext_resource path="res://images/background.png" type="Texture" id=2]
@@ -9,6 +9,7 @@
 [ext_resource path="res://scenes/Theme.tres" type="Theme" id=7]
 [ext_resource path="res://scenes/TemperatureLabel.gd" type="Script" id=8]
 [ext_resource path="res://scenes/State.gd" type="Script" id=9]
+[ext_resource path="res://scenes/Timer.gd" type="Script" id=10]
 
 [sub_resource type="Animation" id=1]
 
@@ -165,6 +166,30 @@ playback_default_blend_time = 0.0
 playback_speed = 1.0
 anims/Blink = SubResource( 1 )
 blend_times = [  ]
+
+[node name="Timer" type="Label" parent="." index="7"]
+
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = -63.0
+margin_top = 42.0
+margin_right = -29.0
+margin_bottom = 52.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 2
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 1
+theme = ExtResource( 7 )
+text = "00:00.00"
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+script = ExtResource( 10 )
+_sections_unfolded = [ "Grow Direction", "Theme" ]
 
 [connection signal="alarm" from="Player/Temperature" to="Background" method="_on_Temperature_alarm"]
 
