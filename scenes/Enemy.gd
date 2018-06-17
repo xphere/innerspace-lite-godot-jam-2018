@@ -4,23 +4,22 @@ const ANGULAR_FRICTION = 0.9
 const SPEED = 3
 const MAX_SPEED = 15
 
-export(NodePath) var trackPath = ""
-
 var direction
 var speed = 0
-var trackNode
+var track_node
+var initial_direction
 
 
 func _ready():
-	var initialDirection = Vector2(rand_range(-1, 1), rand_range(-1, 1))
+	assert(track_node)
 
-	direction = initialDirection.normalized()
-	if trackPath != "" and trackNode == null:
-		trackNode = get_node(trackPath)
+	if initial_direction == null:
+		initial_direction = Vector2(rand_range(-1, 1), rand_range(-1, 1))
+	direction = initial_direction.normalized()
 
 
 func _physics_process(delta):
-	var track_direction = (trackNode.global_position - global_position).normalized()
+	var track_direction = (track_node.global_position - global_position).normalized()
 	direction = (direction + ANGULAR_FRICTION * delta * (track_direction - direction)).normalized()
 	speed = min(speed + SPEED * delta, MAX_SPEED)
 	position += direction * speed * delta

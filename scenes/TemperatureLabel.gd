@@ -2,7 +2,7 @@ extends Label
 
 
 func _on_Temperature_changed(temperature):
-	text = '%.2f ºC' % temperature
+	text = '%.2fºC' % temperature
 
 
 

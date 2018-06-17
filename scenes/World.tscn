@@ -1,15 +1,14 @@
-[gd_scene load_steps=12 format=2]
+[gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://scenes/World.gd" type="Script" id=1]
 [ext_resource path="res://images/background.png" type="Texture" id=2]
 [ext_resource path="res://scenes/Background.gd" type="Script" id=3]
 [ext_resource path="res://scenes/Player.tscn" type="PackedScene" id=4]
-[ext_resource path="res://scenes/Enemy.tscn" type="PackedScene" id=5]
-[ext_resource path="res://scenes/Thermometer.tscn" type="PackedScene" id=6]
-[ext_resource path="res://scenes/ProgressBar.tscn" type="PackedScene" id=7]
-[ext_resource path="res://scenes/Theme.tres" type="Theme" id=8]
-[ext_resource path="res://scenes/TemperatureLabel.gd" type="Script" id=9]
-[ext_resource path="res://scenes/State.gd" type="Script" id=10]
+[ext_resource path="res://scenes/Thermometer.tscn" type="PackedScene" id=5]
+[ext_resource path="res://scenes/ProgressBar.tscn" type="PackedScene" id=6]
+[ext_resource path="res://scenes/Theme.tres" type="Theme" id=7]
+[ext_resource path="res://scenes/TemperatureLabel.gd" type="Script" id=8]
+[ext_resource path="res://scenes/State.gd" type="Script" id=9]
 
 [sub_resource type="Animation" id=1]
 
@@ -82,64 +81,37 @@ _sections_unfolded = [ "Transform" ]
 
 [node name="Player" parent="." index="2" instance=ExtResource( 4 )]
 
+editor/display_folded = true
 _sections_unfolded = [ "Transform" ]
 
-[node name="Enemy#1" parent="." index="3" instance=ExtResource( 5 )]
+[node name="Left Shield" parent="Player" index="1"]
 
-modulate = Color( 1, 0, 0, 1 )
-position = Vector2( 0, -30 )
-trackPath = NodePath("../Player")
+_sections_unfolded = [ "Transform", "Visibility" ]
 
-[node name="Enemy#2" parent="." index="4" instance=ExtResource( 5 )]
+[node name="Right Shield" parent="Player" index="2"]
 
-modulate = Color( 1, 0, 0, 1 )
-position = Vector2( -40, 10 )
-trackPath = NodePath("../Player")
+_sections_unfolded = [ "Transform", "Visibility" ]
 
-[node name="Enemy#3" parent="." index="5" instance=ExtResource( 5 )]
+[node name="Thermometer" parent="." index="3" instance=ExtResource( 5 )]
 
-modulate = Color( 1, 0, 0, 1 )
-position = Vector2( 30, -16 )
-trackPath = NodePath("../Player")
+position = Vector2( -63, -27 )
+height = 25
 
-[node name="Enemy#4" parent="." index="6" instance=ExtResource( 5 )]
+[node name="ProgressBar" parent="." index="4" instance=ExtResource( 6 )]
 
-modulate = Color( 0, 0, 1, 1 )
-position = Vector2( -40, -30 )
-trackPath = NodePath("../Player")
-
-[node name="Enemy#5" parent="." index="7" instance=ExtResource( 5 )]
-
-modulate = Color( 0, 0, 1, 1 )
-position = Vector2( -10, 40 )
-trackPath = NodePath("../Player")
-
-[node name="Enemy#6" parent="." index="8" instance=ExtResource( 5 )]
-
-modulate = Color( 0, 0, 1, 1 )
-position = Vector2( 50, 40 )
-trackPath = NodePath("../Player")
-
-[node name="Thermometer" parent="." index="9" instance=ExtResource( 6 )]
-
-position = Vector2( -62, 45 )
-height = 96
-
-[node name="ProgressBar" parent="." index="10" instance=ExtResource( 7 )]
-
-position = Vector2( 58, 47 )
+position = Vector2( -58, -25 )
 current_value = 75.0
-height = 96
+height = 25
 
-[node name="Temperature" type="Label" parent="." index="11"]
+[node name="Temperature" type="Label" parent="." index="5"]
 
 anchor_left = 0.0
 anchor_top = 0.0
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_left = -57.0
+margin_left = 29.0
 margin_top = -52.0
-margin_right = -23.0
+margin_right = 63.0
 margin_bottom = -42.0
 grow_horizontal = 0
 rect_pivot_offset = Vector2( 0, 0 )
@@ -148,24 +120,25 @@ mouse_filter = 2
 mouse_default_cursor_shape = 0
 size_flags_horizontal = 1
 size_flags_vertical = 1
-theme = ExtResource( 8 )
-text = "99.99 ºC"
+theme = ExtResource( 7 )
+text = "99.99ºC"
+align = 2
 percent_visible = 1.0
 lines_skipped = 0
 max_lines_visible = -1
-script = ExtResource( 9 )
+script = ExtResource( 8 )
 _sections_unfolded = [ "Theme" ]
 
-[node name="State" type="Label" parent="." index="12"]
+[node name="State" type="Label" parent="." index="6"]
 
 anchor_left = 0.0
 anchor_top = 0.0
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_left = 11.0
-margin_top = -52.0
-margin_right = 58.0
-margin_bottom = -42.0
+margin_left = 16.0
+margin_top = -46.0
+margin_right = 63.0
+margin_bottom = -36.0
 grow_horizontal = 0
 rect_pivot_offset = Vector2( 0, 0 )
 rect_clip_content = false
@@ -173,14 +146,14 @@ mouse_filter = 2
 mouse_default_cursor_shape = 0
 size_flags_horizontal = 1
 size_flags_vertical = 1
-theme = ExtResource( 8 )
+theme = ExtResource( 7 )
 text = "State"
 align = 2
 valign = 3
 percent_visible = 1.0
 lines_skipped = 0
 max_lines_visible = -1
-script = ExtResource( 10 )
+script = ExtResource( 9 )
 _sections_unfolded = [ "Grow Direction", "Visibility" ]
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="State" index="0"]
@@ -195,17 +168,17 @@ blend_times = [  ]
 
 [connection signal="alarm" from="Player/Temperature" to="Background" method="_on_Temperature_alarm"]
 
-[connection signal="alarm" from="Player/Temperature" to="State" method="_on_Temperature_alarm"]
-
 [connection signal="alarm" from="Player/Temperature" to="Temperature" method="_on_Temperature_alarm"]
+
+[connection signal="alarm" from="Player/Temperature" to="State" method="_on_Temperature_alarm"]
 
 [connection signal="changed" from="Player/Temperature" to="Temperature" method="_on_Temperature_changed"]
 
 [connection signal="end_alarm" from="Player/Temperature" to="Background" method="_on_Temperature_end_alarm"]
 
-[connection signal="end_alarm" from="Player/Temperature" to="State" method="_on_Temperature_end_alarm"]
-
 [connection signal="end_alarm" from="Player/Temperature" to="Temperature" method="_on_Temperature_end_alarm"]
+
+[connection signal="end_alarm" from="Player/Temperature" to="State" method="_on_Temperature_end_alarm"]
 
 
 [editable path="Player"]
