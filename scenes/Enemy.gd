@@ -7,16 +7,18 @@ const MAX_SPEED = 15
 var direction
 var speed = 0
 var track_node
-var initial_direction
-var mode
+var temperature
 
 
 func _ready():
 	assert(track_node)
+	assert(temperature)
 
-	if initial_direction == null:
-		initial_direction = Vector2(rand_range(-1, 1), rand_range(-1, 1))
-	direction = initial_direction.normalized()
+	direction = direction.normalized()
+	if temperature < 0:
+		modulate = Color(0.0, 0.0, 1.0)
+	else:
+		modulate = Color(1.0, 0.0, 0.0)
 
 
 func _physics_process(delta):

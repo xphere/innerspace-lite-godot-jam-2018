@@ -1,11 +1,17 @@
 extends Timer
 
+const MIN_DISTANCE = 64
+const MAX_DISTANCE = 96
+const MIN_SPEED = 3
+const MAX_SPEED = 12
+const FUZZY_ANGLE = 0.5
+
 onready var enemy_scene = preload('res://scenes/Enemy.tscn')
 
 export(NodePath) var track_path
 
 var track_node
-var mode
+var amount = 0
 
 
 func _ready():
@@ -19,11 +25,13 @@ func _on_timeout():
 
 func create_enemy():
 	var direction = Vector2(rand_range(-1, 1), rand_range(-1, 1)).normalized()
-	var distance = rand_range(64, 96)
-	var speed = rand_range(3, 12)
+	var distance = rand_range(MIN_DISTANCE, MAX_DISTANCE)
+	var speed = rand_range(MIN_SPEED, MAX_SPEED)
 	var enemy = enemy_scene.instance()
 	enemy.global_position = track_node.global_position - (direction * distance)
-	enemy.initial_direction = direction.rotated(rand_range(-0.5, 0.5) * PI)
+	enemy.direction = direction.rotated(rand_range(-FUZZY_ANGLE, FUZZY_ANGLE) * PI)
 	enemy.track_node = track_node
 	enemy.speed = speed
+	enemy.temperature = -1 + 2 * (amount % 2)
 	add_child(enemy)
+	amount += 1

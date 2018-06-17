@@ -4,13 +4,13 @@
 [ext_resource path="res://images/background.png" type="Texture" id=2]
 [ext_resource path="res://scenes/Background.gd" type="Script" id=3]
 [ext_resource path="res://scenes/Player.tscn" type="PackedScene" id=4]
-[ext_resource path="res://scenes/Thermometer.tscn" type="PackedScene" id=5]
-[ext_resource path="res://scenes/ProgressBar.tscn" type="PackedScene" id=6]
-[ext_resource path="res://scenes/Theme.tres" type="Theme" id=7]
-[ext_resource path="res://scenes/TemperatureLabel.gd" type="Script" id=8]
-[ext_resource path="res://scenes/State.gd" type="Script" id=9]
-[ext_resource path="res://scenes/Timer.gd" type="Script" id=10]
-[ext_resource path="res://scenes/EnemySpawn.gd" type="Script" id=11]
+[ext_resource path="res://scenes/EnemySpawn.gd" type="Script" id=5]
+[ext_resource path="res://scenes/Thermometer.tscn" type="PackedScene" id=6]
+[ext_resource path="res://scenes/ProgressBar.tscn" type="PackedScene" id=7]
+[ext_resource path="res://scenes/Theme.tres" type="Theme" id=8]
+[ext_resource path="res://scenes/TemperatureLabel.gd" type="Script" id=9]
+[ext_resource path="res://scenes/State.gd" type="Script" id=10]
+[ext_resource path="res://scenes/Timer.gd" type="Script" id=11]
 
 [sub_resource type="Animation" id=1]
 
@@ -84,6 +84,7 @@ _sections_unfolded = [ "Transform" ]
 
 [node name="Player" parent="." index="2" instance=ExtResource( 4 )]
 
+editor/display_folded = true
 _sections_unfolded = [ "Transform" ]
 
 [node name="Left Shield" parent="Player" index="1"]
@@ -102,18 +103,31 @@ editor/display_folded = true
 
 editor/display_folded = true
 
-[node name="Thermometer" parent="." index="3" instance=ExtResource( 5 )]
+[node name="EnemySpawn" type="Timer" parent="." index="3"]
+
+process_mode = 1
+wait_time = 1.25
+one_shot = false
+autostart = true
+script = ExtResource( 5 )
+track_path = NodePath("../Player")
+
+[node name="Thermometer" parent="." index="4" instance=ExtResource( 6 )]
 
 position = Vector2( -63, -27 )
+z_index = 128
+_sections_unfolded = [ "Offset", "Region", "Transform", "Visibility", "Z Index" ]
 height = 25
 
-[node name="ProgressBar" parent="." index="4" instance=ExtResource( 6 )]
+[node name="ProgressBar" parent="." index="5" instance=ExtResource( 7 )]
 
 position = Vector2( -58, -25 )
+z_index = 128
+_sections_unfolded = [ "Offset", "Region", "Transform", "Z Index" ]
 current_value = 75.0
 height = 25
 
-[node name="Temperature" type="Label" parent="." index="5"]
+[node name="Temperature" type="Label" parent="." index="6"]
 
 anchor_left = 0.0
 anchor_top = 0.0
@@ -130,16 +144,16 @@ mouse_filter = 2
 mouse_default_cursor_shape = 0
 size_flags_horizontal = 1
 size_flags_vertical = 1
-theme = ExtResource( 7 )
+theme = ExtResource( 8 )
 text = "99.99ºC"
 align = 2
 percent_visible = 1.0
 lines_skipped = 0
 max_lines_visible = -1
-script = ExtResource( 8 )
+script = ExtResource( 9 )
 _sections_unfolded = [ "Theme" ]
 
-[node name="State" type="Label" parent="." index="6"]
+[node name="State" type="Label" parent="." index="7"]
 
 editor/display_folded = true
 anchor_left = 0.0
@@ -157,14 +171,14 @@ mouse_filter = 2
 mouse_default_cursor_shape = 0
 size_flags_horizontal = 1
 size_flags_vertical = 1
-theme = ExtResource( 7 )
+theme = ExtResource( 8 )
 text = "State"
 align = 2
 valign = 3
 percent_visible = 1.0
 lines_skipped = 0
 max_lines_visible = -1
-script = ExtResource( 9 )
+script = ExtResource( 10 )
 _sections_unfolded = [ "Grow Direction", "Visibility" ]
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="State" index="0"]
@@ -177,7 +191,7 @@ playback_speed = 1.0
 anims/Blink = SubResource( 1 )
 blend_times = [  ]
 
-[node name="Timer" type="Label" parent="." index="7"]
+[node name="Timer" type="Label" parent="." index="8"]
 
 anchor_left = 0.0
 anchor_top = 0.0
@@ -193,36 +207,27 @@ mouse_filter = 2
 mouse_default_cursor_shape = 0
 size_flags_horizontal = 1
 size_flags_vertical = 1
-theme = ExtResource( 7 )
+theme = ExtResource( 8 )
 text = "00:00.00"
 percent_visible = 1.0
 lines_skipped = 0
 max_lines_visible = -1
-script = ExtResource( 10 )
-_sections_unfolded = [ "Grow Direction", "Theme" ]
-
-[node name="EnemySpawn" type="Timer" parent="." index="8"]
-
-process_mode = 1
-wait_time = 1.25
-one_shot = false
-autostart = true
 script = ExtResource( 11 )
-track_path = NodePath("../Player")
+_sections_unfolded = [ "Grow Direction", "Theme" ]
 
 [connection signal="alarm" from="Player/Temperature" to="Background" method="_on_Temperature_alarm"]
 
-[connection signal="alarm" from="Player/Temperature" to="State" method="_on_Temperature_alarm"]
-
 [connection signal="alarm" from="Player/Temperature" to="Temperature" method="_on_Temperature_alarm"]
+
+[connection signal="alarm" from="Player/Temperature" to="State" method="_on_Temperature_alarm"]
 
 [connection signal="changed" from="Player/Temperature" to="Temperature" method="_on_Temperature_changed"]
 
 [connection signal="end_alarm" from="Player/Temperature" to="Background" method="_on_Temperature_end_alarm"]
 
-[connection signal="end_alarm" from="Player/Temperature" to="State" method="_on_Temperature_end_alarm"]
-
 [connection signal="end_alarm" from="Player/Temperature" to="Temperature" method="_on_Temperature_end_alarm"]
+
+[connection signal="end_alarm" from="Player/Temperature" to="State" method="_on_Temperature_end_alarm"]
 
 [connection signal="timeout" from="EnemySpawn" to="EnemySpawn" method="_on_timeout"]
 
