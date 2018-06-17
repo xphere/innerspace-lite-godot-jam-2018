@@ -2,8 +2,9 @@ extends Node2D
 
 const ROTATION_SPEED = 3
 const MAX_ROTATION_SPEED = 5
-const ROTATION_FRICTION = 0.8
+const ROTATION_FRICTION = 0.5
 const DAMAGE_ABSORPTION_FROM_SHIELD = 0.5
+const TEMPERATURE_ABSORPTION_FROM_SHIELD = 0.5
 
 var rotation_intent = 0
 var rotation_velocity = 0
@@ -28,9 +29,10 @@ func _physics_process(delta):
 func _on_Player_area_entered(area):
 	var enemy = area.get_parent()
 	$Temperature.hit(enemy.temperature)
-	$Health.hit(2.0)
+	$Health.hit(abs(enemy.temperature))
 
 
 func _on_Shield_area_entered(area):
 	var enemy = area.get_parent()
-	$Temperature.hit(enemy.temperature * DAMAGE_ABSORPTION_FROM_SHIELD)
+	$Temperature.hit(enemy.temperature * TEMPERATURE_ABSORPTION_FROM_SHIELD)
+	$Health.hit(abs(enemy.temperature * DAMAGE_ABSORPTION_FROM_SHIELD))
