@@ -66,11 +66,10 @@ func temperature_to_state(value):
 	if value < StateLimit[State.FEVER]:
 		return State.NORMAL
 
-	if value >= StateLimit[State.FEVER]:
-		return State.FEVER
-
 	if value >= StateLimit[State.HYPERPYREXIA]:
 		return State.HYPERPYREXIA
+
+	return State.FEVER
 
 
 func bind_to(thermometer):
