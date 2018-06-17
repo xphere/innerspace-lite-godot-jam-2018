@@ -27,6 +27,7 @@ func _physics_process(delta):
 
 func _on_Player_area_entered(area):
 	$Temperature.hit(1)
+	$Health.hit(1)
 
 
 func _on_Shield_area_entered(area):

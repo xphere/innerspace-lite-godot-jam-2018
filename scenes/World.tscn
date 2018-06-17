@@ -1,12 +1,13 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://scenes/World.gd" type="Script" id=1]
 [ext_resource path="res://scenes/Player.tscn" type="PackedScene" id=2]
 [ext_resource path="res://scenes/Enemy.tscn" type="PackedScene" id=3]
 [ext_resource path="res://scenes/Thermometer.tscn" type="PackedScene" id=4]
-[ext_resource path="res://scenes/Theme.tres" type="Theme" id=5]
-[ext_resource path="res://scenes/TemperatureLabel.gd" type="Script" id=6]
-[ext_resource path="res://scenes/State.gd" type="Script" id=7]
+[ext_resource path="res://scenes/ProgressBar.tscn" type="PackedScene" id=5]
+[ext_resource path="res://scenes/Theme.tres" type="Theme" id=6]
+[ext_resource path="res://scenes/TemperatureLabel.gd" type="Script" id=7]
+[ext_resource path="res://scenes/State.gd" type="Script" id=8]
 
 [sub_resource type="Animation" id=1]
 
@@ -99,10 +100,16 @@ trackPath = NodePath("../Player")
 
 [node name="Thermometer" parent="." index="8" instance=ExtResource( 4 )]
 
-position = Vector2( -62, 44 )
+position = Vector2( -62, 45 )
 height = 96
 
-[node name="Temperature" type="Label" parent="." index="9"]
+[node name="ProgressBar" parent="." index="9" instance=ExtResource( 5 )]
+
+position = Vector2( 58, 47 )
+current_value = 75.0
+height = 96
+
+[node name="Temperature" type="Label" parent="." index="10"]
 
 anchor_left = 0.0
 anchor_top = 0.0
@@ -119,15 +126,15 @@ mouse_filter = 2
 mouse_default_cursor_shape = 0
 size_flags_horizontal = 1
 size_flags_vertical = 1
-theme = ExtResource( 5 )
+theme = ExtResource( 6 )
 text = "99.99 ºC"
 percent_visible = 1.0
 lines_skipped = 0
 max_lines_visible = -1
-script = ExtResource( 6 )
+script = ExtResource( 7 )
 _sections_unfolded = [ "Theme" ]
 
-[node name="State" type="Label" parent="." index="10"]
+[node name="State" type="Label" parent="." index="11"]
 
 anchor_left = 0.0
 anchor_top = 0.0
@@ -144,14 +151,14 @@ mouse_filter = 2
 mouse_default_cursor_shape = 0
 size_flags_horizontal = 1
 size_flags_vertical = 1
-theme = ExtResource( 5 )
+theme = ExtResource( 6 )
 text = "State"
 align = 2
 valign = 3
 percent_visible = 1.0
 lines_skipped = 0
 max_lines_visible = -1
-script = ExtResource( 7 )
+script = ExtResource( 8 )
 _sections_unfolded = [ "Grow Direction", "Visibility" ]
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="State" index="0"]

@@ -1,10 +1,12 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://scenes/Player.gd" type="Script" id=1]
 [ext_resource path="res://images/sprites.png" type="Texture" id=2]
 [ext_resource path="res://scenes/Shield.tscn" type="PackedScene" id=3]
 [ext_resource path="res://scenes/Turret.gd" type="Script" id=4]
 [ext_resource path="res://scenes/Temperature.gd" type="Script" id=5]
+[ext_resource path="res://scenes/Health.gd" type="Script" id=6]
+[ext_resource path="res://scenes/LifeDrain.gd" type="Script" id=7]
 
 [sub_resource type="RectangleShape2D" id=1]
 
@@ -67,11 +69,29 @@ autostart = true
 
 script = ExtResource( 5 )
 
+[node name="Health" type="Node2D" parent="." index="6"]
+
+script = ExtResource( 6 )
+
+[node name="LifeDrain" type="Timer" parent="." index="7"]
+
+process_mode = 1
+wait_time = 0.1
+one_shot = false
+autostart = false
+script = ExtResource( 7 )
+
 [connection signal="area_entered" from="Left Shield/Shield" to="." method="_on_Shield_area_entered"]
 
 [connection signal="area_entered" from="Right Shield/Shield" to="." method="_on_Shield_area_entered"]
 
 [connection signal="area_entered" from="Player" to="." method="_on_Player_area_entered"]
+
+[connection signal="alarm" from="Temperature" to="LifeDrain" method="_on_Temperature_alarm"]
+
+[connection signal="end_alarm" from="Temperature" to="LifeDrain" method="_on_Temperature_end_alarm"]
+
+[connection signal="timeout" from="LifeDrain" to="LifeDrain" method="_on_LifeDrain_timeout"]
 
 
 [editable path="Left Shield"]
