@@ -17,6 +17,7 @@ var amount = 0
 func _ready():
 	assert(track_path)
 	track_node = get_node(track_path)
+	randomize()
 
 
 func _on_timeout():
