@@ -26,12 +26,12 @@ _sections_unfolded = [ "Offset", "Region" ]
 
 [node name="Left Shield" parent="." index="1" instance=ExtResource( 3 )]
 
-position = Vector2( -3, 0 )
+position = Vector2( -4, 0 )
 _sections_unfolded = [ "Transform" ]
 
 [node name="Right Shield" parent="." index="2" instance=ExtResource( 3 )]
 
-position = Vector2( 3, 0 )
+position = Vector2( 4, 0 )
 rotation = 3.14159
 _sections_unfolded = [ "Transform" ]
 

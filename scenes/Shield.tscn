@@ -9,6 +9,9 @@ extents = Vector2( 0.5, 1.5 )
 
 [node name="Shield" type="Node2D" index="0"]
 
+modulate = Color( 1, 1, 1, 0.5 )
+_sections_unfolded = [ "Visibility" ]
+
 [node name="Sprite" type="Sprite" parent="." index="0"]
 
 texture = ExtResource( 1 )
