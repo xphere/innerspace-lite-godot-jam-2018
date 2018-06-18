@@ -7,7 +7,7 @@ signal hit(damage, health)
 signal died()
 
 var health = 100
-
+var died = false
 
 func _ready():
 	call_deferred('emit_signal', 'changed', health)
@@ -20,9 +20,12 @@ func hit(damage):
 
 
 func set_health(health):
+	if died:
+		return
 	self.health = clamp(health, 0, MAX_HEALTH)
-	emit_signal('changed', health)
-	if health == 0:
+	emit_signal('changed', self.health)
+	if self.health == 0:
+		died = true
 		emit_signal('died')
 
 

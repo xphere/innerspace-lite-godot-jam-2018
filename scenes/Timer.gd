@@ -1,8 +1,7 @@
 extends Label
 
 var started
-var elapsed = 0
-
+var total_time
 
 
 func _ready():
@@ -20,4 +19,12 @@ func _process(delta):
 
 
 func elapsed_time():
-	return elapsed + OS.get_ticks_msec() - started
+	if total_time:
+		return total_time
+
+	return OS.get_ticks_msec() - started
+
+
+func stop():
+	total_time = elapsed_time()
+	set_process(false)

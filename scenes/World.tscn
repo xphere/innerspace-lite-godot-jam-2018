@@ -217,9 +217,41 @@ max_lines_visible = -1
 script = ExtResource( 12 )
 _sections_unfolded = [ "Grow Direction", "Rect", "Size Flags" ]
 
-[node name="Centered Container" type="CenterContainer" parent="." index="9"]
+[node name="Again?" type="Label" parent="." index="9"]
 
-editor/display_folded = true
+visible = false
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 36.0
+margin_top = 42.0
+margin_right = 63.0
+margin_bottom = 52.0
+grow_horizontal = 0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 2
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 4
+theme = ExtResource( 9 )
+text = "Again?"
+align = 2
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+_sections_unfolded = [ "Anchor", "Grow Direction", "Theme" ]
+
+[node name="Timer" type="Timer" parent="Again?" index="0"]
+
+process_mode = 1
+wait_time = 1.0
+one_shot = true
+autostart = false
+
+[node name="Centered Container" type="CenterContainer" parent="." index="10"]
+
 visible = false
 anchor_left = 0.0
 anchor_top = 0.0
@@ -274,11 +306,15 @@ _sections_unfolded = [ "Anchor", "Grow Direction", "Margin", "Rect", "Size Flags
 
 [connection signal="end_alarm" from="Player/Temperature" to="State" method="_on_Temperature_end_alarm"]
 
+[connection signal="died" from="Player/Health" to="Player" method="_on_died"]
+
 [connection signal="died" from="Player/Health" to="." method="_on_Player_died"]
 
 [connection signal="hit" from="Player/Health" to="Camera" method="_on_hit"]
 
 [connection signal="timeout" from="EnemySpawn" to="EnemySpawn" method="_on_timeout"]
+
+[connection signal="timeout" from="Again?/Timer" to="." method="_on_repeat_again"]
 
 
 [editable path="Player"]
