@@ -5,13 +5,13 @@
 [ext_resource path="res://scenes/Background.gd" type="Script" id=3]
 [ext_resource path="res://scenes/Camera.gd" type="Script" id=4]
 [ext_resource path="res://scenes/Player.tscn" type="PackedScene" id=5]
-[ext_resource path="res://scenes/EnemySpawn.gd" type="Script" id=6]
-[ext_resource path="res://scenes/Thermometer.tscn" type="PackedScene" id=7]
-[ext_resource path="res://scenes/ProgressBar.tscn" type="PackedScene" id=8]
-[ext_resource path="res://scenes/Theme.tres" type="Theme" id=9]
-[ext_resource path="res://scenes/TemperatureLabel.gd" type="Script" id=10]
-[ext_resource path="res://scenes/State.gd" type="Script" id=11]
-[ext_resource path="res://scenes/Timer.gd" type="Script" id=12]
+[ext_resource path="res://scenes/Thermometer.tscn" type="PackedScene" id=6]
+[ext_resource path="res://scenes/ProgressBar.tscn" type="PackedScene" id=7]
+[ext_resource path="res://scenes/Theme.tres" type="Theme" id=8]
+[ext_resource path="res://scenes/TemperatureLabel.gd" type="Script" id=9]
+[ext_resource path="res://scenes/State.gd" type="Script" id=10]
+[ext_resource path="res://scenes/Timer.gd" type="Script" id=11]
+[ext_resource path="res://scenes/EnemySpawn.gd" type="Script" id=12]
 
 [sub_resource type="Animation" id=1]
 
@@ -32,7 +32,7 @@ tracks/0/keys = {
 "values": [ Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0.25098 ), Color( 1, 1, 1, 1 ) ]
 }
 
-[node name="World" type="Node2D" index="0"]
+[node name="World" type="Node2D"]
 
 script = ExtResource( 1 )
 _sections_unfolded = [ "Pause" ]
@@ -43,6 +43,7 @@ editor/display_folded = true
 modulate = Color( 0.5, 0.5, 0.5, 1 )
 show_behind_parent = true
 scale = Vector2( 0.05, 0.05 )
+z_index = -128
 texture = ExtResource( 2 )
 region_enabled = true
 region_rect = Rect2( 0, 0, 2600, 2048 )
@@ -105,23 +106,14 @@ editor/display_folded = true
 
 editor/display_folded = true
 
-[node name="EnemySpawn" type="Timer" parent="." index="3"]
-
-process_mode = 1
-wait_time = 1.25
-one_shot = false
-autostart = true
-script = ExtResource( 6 )
-track_path = NodePath("../Player")
-
-[node name="Thermometer" parent="." index="4" instance=ExtResource( 7 )]
+[node name="Thermometer" parent="." index="3" instance=ExtResource( 6 )]
 
 position = Vector2( -63, -27 )
 z_index = 128
 _sections_unfolded = [ "Offset", "Region", "Transform", "Visibility", "Z Index" ]
 height = 25
 
-[node name="ProgressBar" parent="." index="5" instance=ExtResource( 8 )]
+[node name="ProgressBar" parent="." index="4" instance=ExtResource( 7 )]
 
 position = Vector2( -58, -25 )
 z_index = 128
@@ -129,7 +121,7 @@ _sections_unfolded = [ "Offset", "Region", "Transform", "Z Index" ]
 current_value = 75.0
 height = 25
 
-[node name="Temperature" type="Label" parent="." index="6"]
+[node name="Temperature" type="Label" parent="." index="5"]
 
 anchor_left = 0.0
 anchor_top = 0.0
@@ -146,16 +138,16 @@ mouse_filter = 2
 mouse_default_cursor_shape = 0
 size_flags_horizontal = 1
 size_flags_vertical = 1
-theme = ExtResource( 9 )
+theme = ExtResource( 8 )
 text = "99.99ºC"
 align = 2
 percent_visible = 1.0
 lines_skipped = 0
 max_lines_visible = -1
-script = ExtResource( 10 )
+script = ExtResource( 9 )
 _sections_unfolded = [ "Theme" ]
 
-[node name="State" type="Label" parent="." index="7"]
+[node name="State" type="Label" parent="." index="6"]
 
 editor/display_folded = true
 anchor_left = 0.0
@@ -173,14 +165,14 @@ mouse_filter = 2
 mouse_default_cursor_shape = 0
 size_flags_horizontal = 1
 size_flags_vertical = 1
-theme = ExtResource( 9 )
+theme = ExtResource( 8 )
 text = "State"
 align = 2
 valign = 3
 percent_visible = 1.0
 lines_skipped = 0
 max_lines_visible = -1
-script = ExtResource( 11 )
+script = ExtResource( 10 )
 _sections_unfolded = [ "Grow Direction", "Visibility" ]
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="State" index="0"]
@@ -193,7 +185,7 @@ playback_speed = 1.0
 anims/Blink = SubResource( 1 )
 blend_times = [  ]
 
-[node name="Timer" type="Label" parent="." index="8"]
+[node name="Timer" type="Label" parent="." index="7"]
 
 anchor_left = 0.0
 anchor_top = 0.0
@@ -209,16 +201,17 @@ mouse_filter = 2
 mouse_default_cursor_shape = 0
 size_flags_horizontal = 1
 size_flags_vertical = 1
-theme = ExtResource( 9 )
+theme = ExtResource( 8 )
 text = "00:00.00"
 percent_visible = 1.0
 lines_skipped = 0
 max_lines_visible = -1
-script = ExtResource( 12 )
+script = ExtResource( 11 )
 _sections_unfolded = [ "Grow Direction", "Rect", "Size Flags" ]
 
-[node name="Again?" type="Label" parent="." index="9"]
+[node name="Again?" type="Label" parent="." index="8"]
 
+editor/display_folded = true
 visible = false
 anchor_left = 0.0
 anchor_top = 0.0
@@ -235,7 +228,7 @@ mouse_filter = 2
 mouse_default_cursor_shape = 0
 size_flags_horizontal = 1
 size_flags_vertical = 4
-theme = ExtResource( 9 )
+theme = ExtResource( 8 )
 text = "Again?"
 align = 2
 percent_visible = 1.0
@@ -250,8 +243,9 @@ wait_time = 1.0
 one_shot = true
 autostart = false
 
-[node name="Centered Container" type="CenterContainer" parent="." index="10"]
+[node name="Centered Container" type="CenterContainer" parent="." index="9"]
 
+editor/display_folded = true
 visible = false
 anchor_left = 0.0
 anchor_top = 0.0
@@ -283,7 +277,7 @@ mouse_filter = 2
 mouse_default_cursor_shape = 0
 size_flags_horizontal = 4
 size_flags_vertical = 4
-theme = ExtResource( 9 )
+theme = ExtResource( 8 )
 text = "Game Over"
 align = 1
 valign = 1
@@ -291,6 +285,15 @@ percent_visible = 1.0
 lines_skipped = 0
 max_lines_visible = -1
 _sections_unfolded = [ "Anchor", "Grow Direction", "Margin", "Rect", "Size Flags", "Visibility" ]
+
+[node name="EnemySpawn" type="Timer" parent="." index="10"]
+
+process_mode = 1
+wait_time = 1.25
+one_shot = false
+autostart = true
+script = ExtResource( 12 )
+track_path = NodePath("../Player")
 
 [connection signal="alarm" from="Player/Temperature" to="Background" method="_on_Temperature_alarm"]
 
@@ -312,9 +315,9 @@ _sections_unfolded = [ "Anchor", "Grow Direction", "Margin", "Rect", "Size Flags
 
 [connection signal="hit" from="Player/Health" to="Camera" method="_on_hit"]
 
-[connection signal="timeout" from="EnemySpawn" to="EnemySpawn" method="_on_timeout"]
-
 [connection signal="timeout" from="Again?/Timer" to="." method="_on_repeat_again"]
+
+[connection signal="timeout" from="EnemySpawn" to="EnemySpawn" method="_on_timeout"]
 
 
 [editable path="Player"]
