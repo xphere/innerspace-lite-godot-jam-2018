@@ -16,6 +16,7 @@ func fire():
 	recharging = true
 	$Timer.start()
 
+	$Audio.play()
 	var bullet = bullet_scene.instance()
 	bullet.position = global_position
 	bullet.rotation = global_rotation

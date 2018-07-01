@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=2]
+[gd_scene load_steps=15 format=2]
 
 [ext_resource path="res://scenes/World.gd" type="Script" id=1]
 [ext_resource path="res://images/background.png" type="Texture" id=2]
@@ -12,6 +12,7 @@
 [ext_resource path="res://scenes/State.gd" type="Script" id=10]
 [ext_resource path="res://scenes/Timer.gd" type="Script" id=11]
 [ext_resource path="res://scenes/EnemySpawn.gd" type="Script" id=12]
+[ext_resource path="res://audio/hubris3.ogg" type="AudioStream" id=13]
 
 [sub_resource type="Animation" id=1]
 
@@ -295,23 +296,33 @@ autostart = true
 script = ExtResource( 12 )
 track_path = NodePath("../Player")
 
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="." index="11"]
+
+stream = ExtResource( 13 )
+volume_db = 0.0
+pitch_scale = 1.0
+autoplay = true
+mix_target = 0
+bus = "Master"
+_sections_unfolded = [ "Pause" ]
+
 [connection signal="alarm" from="Player/Temperature" to="Background" method="_on_Temperature_alarm"]
 
-[connection signal="alarm" from="Player/Temperature" to="Temperature" method="_on_Temperature_alarm"]
-
 [connection signal="alarm" from="Player/Temperature" to="State" method="_on_Temperature_alarm"]
+
+[connection signal="alarm" from="Player/Temperature" to="Temperature" method="_on_Temperature_alarm"]
 
 [connection signal="changed" from="Player/Temperature" to="Temperature" method="_on_Temperature_changed"]
 
 [connection signal="end_alarm" from="Player/Temperature" to="Background" method="_on_Temperature_end_alarm"]
 
-[connection signal="end_alarm" from="Player/Temperature" to="Temperature" method="_on_Temperature_end_alarm"]
-
 [connection signal="end_alarm" from="Player/Temperature" to="State" method="_on_Temperature_end_alarm"]
 
-[connection signal="died" from="Player/Health" to="Player" method="_on_died"]
+[connection signal="end_alarm" from="Player/Temperature" to="Temperature" method="_on_Temperature_end_alarm"]
 
 [connection signal="died" from="Player/Health" to="." method="_on_Player_died"]
+
+[connection signal="died" from="Player/Health" to="Player" method="_on_died"]
 
 [connection signal="hit" from="Player/Health" to="Camera" method="_on_hit"]
 

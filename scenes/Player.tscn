@@ -1,17 +1,23 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://scenes/Player.gd" type="Script" id=1]
 [ext_resource path="res://images/sprites.png" type="Texture" id=2]
 [ext_resource path="res://scenes/Shield.tscn" type="PackedScene" id=3]
 [ext_resource path="res://scenes/Turret.gd" type="Script" id=4]
-[ext_resource path="res://scenes/Temperature.gd" type="Script" id=5]
-[ext_resource path="res://scenes/Health.gd" type="Script" id=6]
-[ext_resource path="res://scenes/LifeDrain.gd" type="Script" id=7]
+[ext_resource path="res://audio/shot.wav" type="AudioStream" id=5]
+[ext_resource path="res://scenes/Temperature.gd" type="Script" id=6]
+[ext_resource path="res://scenes/Health.gd" type="Script" id=7]
+[ext_resource path="res://scenes/LifeDrain.gd" type="Script" id=8]
 
 [sub_resource type="RectangleShape2D" id=1]
 
 custom_solver_bias = 0.0
 extents = Vector2( 1.5, 1 )
+
+[sub_resource type="AudioStreamRandomPitch" id=2]
+
+audio_stream = ExtResource( 5 )
+random_pitch = 1.2
 
 [node name="Player" type="Node2D" index="0"]
 
@@ -65,13 +71,24 @@ wait_time = 0.2
 one_shot = false
 autostart = true
 
+[node name="Audio" type="AudioStreamPlayer2D" parent="Turret" index="1"]
+
+stream = SubResource( 2 )
+volume_db = -10.0
+pitch_scale = 1.0
+autoplay = false
+max_distance = 2000.0
+attenuation = 1.0
+bus = "Master"
+area_mask = 1
+
 [node name="Temperature" type="Node2D" parent="." index="5"]
 
-script = ExtResource( 5 )
+script = ExtResource( 6 )
 
 [node name="Health" type="Node2D" parent="." index="6"]
 
-script = ExtResource( 6 )
+script = ExtResource( 7 )
 
 [node name="LifeDrain" type="Timer" parent="." index="7"]
 
@@ -79,7 +96,7 @@ process_mode = 1
 wait_time = 0.1
 one_shot = false
 autostart = false
-script = ExtResource( 7 )
+script = ExtResource( 8 )
 
 [connection signal="area_entered" from="Left Shield/Shield" to="." method="_on_Shield_area_entered"]
 
