@@ -26,6 +26,7 @@ func _physics_process(delta):
 	direction = (direction + ANGULAR_FRICTION * delta * (track_direction - direction)).normalized()
 	speed = min(speed + SPEED * delta, MAX_SPEED)
 	position += direction * speed * delta
+	$Sprite.rotation = direction.angle()
 
 
 func destroy():
