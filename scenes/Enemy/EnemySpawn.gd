@@ -6,7 +6,7 @@ const MIN_SPEED = 3
 const MAX_SPEED = 12
 const FUZZY_ANGLE = 0.5
 
-onready var enemy_scene = preload('res://scenes/Enemy.tscn')
+onready var enemy_scene = preload('res://scenes/Enemy/Enemy.tscn')
 
 export(NodePath) var track_path
 

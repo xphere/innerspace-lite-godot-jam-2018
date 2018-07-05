@@ -2,7 +2,7 @@ extends Node2D
 
 const SPEED = 25
 
-onready var explosion_scene = preload("res://scenes/Explosion.tscn")
+onready var explosion_scene = preload("res://scenes/World/Explosion.tscn")
 
 var direction
 

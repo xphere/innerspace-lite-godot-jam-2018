@@ -8,7 +8,7 @@ const DAMAGE_MULTIPLIER_FOR_PLAYER = 2
 const TEMPERATURE_MULTIPLIER_FOR_SHIELD = 0.5
 const TEMPERATURE_MULTIPLIER_FOR_PLAYER = 1.5
 
-onready var explosion_scene = preload("res://scenes/Explosion.tscn")
+onready var explosion_scene = preload("res://scenes/World/Explosion.tscn")
 
 var rotation_intent = 0
 var rotation_velocity = 0

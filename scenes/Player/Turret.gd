@@ -1,6 +1,6 @@
 extends Node2D
 
-onready var bullet_scene = preload("res://scenes/Bullet.tscn")
+onready var bullet_scene = preload("res://scenes/Player/Bullet.tscn")
 
 var recharging = false
 

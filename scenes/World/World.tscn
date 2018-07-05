@@ -1,18 +1,18 @@
 [gd_scene load_steps=15 format=2]
 
-[ext_resource path="res://scenes/World.gd" type="Script" id=1]
+[ext_resource path="res://scenes/World/World.gd" type="Script" id=1]
 [ext_resource path="res://images/background.png" type="Texture" id=2]
-[ext_resource path="res://scenes/Background.gd" type="Script" id=3]
-[ext_resource path="res://scenes/Camera.gd" type="Script" id=4]
-[ext_resource path="res://scenes/Player.tscn" type="PackedScene" id=5]
-[ext_resource path="res://scenes/Thermometer.tscn" type="PackedScene" id=6]
-[ext_resource path="res://scenes/ProgressBar.tscn" type="PackedScene" id=7]
-[ext_resource path="res://scenes/Theme.tres" type="Theme" id=8]
-[ext_resource path="res://scenes/TemperatureLabel.gd" type="Script" id=9]
-[ext_resource path="res://scenes/State.gd" type="Script" id=10]
-[ext_resource path="res://scenes/Timer.gd" type="Script" id=11]
-[ext_resource path="res://scenes/EnemySpawn.gd" type="Script" id=12]
-[ext_resource path="res://audio/hubris3.ogg" type="AudioStream" id=13]
+[ext_resource path="res://scenes/World/Background.gd" type="Script" id=3]
+[ext_resource path="res://scenes/World/Camera.gd" type="Script" id=4]
+[ext_resource path="res://scenes/Player/Player.tscn" type="PackedScene" id=5]
+[ext_resource path="res://scenes/GUI/Thermometer.tscn" type="PackedScene" id=6]
+[ext_resource path="res://scenes/GUI/ProgressBar.tscn" type="PackedScene" id=7]
+[ext_resource path="res://scenes/Enemy/EnemySpawn.gd" type="Script" id=8]
+[ext_resource path="res://audio/hubris3.ogg" type="AudioStream" id=9]
+[ext_resource path="res://scenes/GUI/Theme.tres" type="Theme" id=10]
+[ext_resource path="res://scenes/Player/TemperatureLabel.gd" type="Script" id=11]
+[ext_resource path="res://scenes/Player/State.gd" type="Script" id=12]
+[ext_resource path="res://scenes/GUI/Timer.gd" type="Script" id=13]
 
 [sub_resource type="Animation" id=1]
 
@@ -33,10 +33,20 @@ tracks/0/keys = {
 "values": [ Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0.25098 ), Color( 1, 1, 1, 1 ) ]
 }
 
-[node name="World" type="Node2D"]
+[node name="World" type="Control" index="0"]
 
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 0
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 1
 script = ExtResource( 1 )
-_sections_unfolded = [ "Pause" ]
+_sections_unfolded = [ "Pause", "Sort" ]
 
 [node name="Background" type="Sprite" parent="." index="0"]
 
@@ -123,7 +133,41 @@ _sections_unfolded = [ "Offset", "Region", "Transform", "Z Index" ]
 current_value = 75.0
 height = 25
 
-[node name="Temperature" type="Label" parent="." index="5"]
+[node name="EnemySpawn" type="Timer" parent="." index="5"]
+
+process_mode = 1
+wait_time = 1.25
+one_shot = false
+autostart = true
+script = ExtResource( 8 )
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="." index="6"]
+
+stream = ExtResource( 9 )
+volume_db = 0.0
+pitch_scale = 1.0
+autoplay = true
+mix_target = 0
+bus = "Master"
+_sections_unfolded = [ "Pause" ]
+
+[node name="GUI" type="Control" parent="." index="7"]
+
+editor/display_folded = true
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_right = 40.0
+margin_bottom = 40.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 0
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 1
+
+[node name="Temperature" type="Label" parent="GUI" index="0"]
 
 anchor_left = 0.0
 anchor_top = 0.0
@@ -140,16 +184,16 @@ mouse_filter = 2
 mouse_default_cursor_shape = 0
 size_flags_horizontal = 1
 size_flags_vertical = 1
-theme = ExtResource( 8 )
+theme = ExtResource( 10 )
 text = "99.99ºC"
 align = 2
 percent_visible = 1.0
 lines_skipped = 0
 max_lines_visible = -1
-script = ExtResource( 9 )
+script = ExtResource( 11 )
 _sections_unfolded = [ "Theme" ]
 
-[node name="State" type="Label" parent="." index="6"]
+[node name="State" type="Label" parent="GUI" index="1"]
 
 editor/display_folded = true
 anchor_left = 0.0
@@ -167,17 +211,17 @@ mouse_filter = 2
 mouse_default_cursor_shape = 0
 size_flags_horizontal = 1
 size_flags_vertical = 1
-theme = ExtResource( 8 )
+theme = ExtResource( 10 )
 text = "State"
 align = 2
 valign = 3
 percent_visible = 1.0
 lines_skipped = 0
 max_lines_visible = -1
-script = ExtResource( 10 )
+script = ExtResource( 12 )
 _sections_unfolded = [ "Grow Direction", "Visibility" ]
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="State" index="0"]
+[node name="AnimationPlayer" type="AnimationPlayer" parent="GUI/State" index="0"]
 
 root_node = NodePath("..")
 autoplay = ""
@@ -187,7 +231,7 @@ playback_speed = 1.0
 anims/Blink = SubResource( 1 )
 blend_times = [  ]
 
-[node name="Timer" type="Label" parent="." index="7"]
+[node name="Timer" type="Label" parent="GUI" index="2"]
 
 anchor_left = 0.0
 anchor_top = 0.0
@@ -203,15 +247,15 @@ mouse_filter = 2
 mouse_default_cursor_shape = 0
 size_flags_horizontal = 1
 size_flags_vertical = 1
-theme = ExtResource( 8 )
+theme = ExtResource( 10 )
 text = "00:00.00"
 percent_visible = 1.0
 lines_skipped = 0
 max_lines_visible = -1
-script = ExtResource( 11 )
+script = ExtResource( 13 )
 _sections_unfolded = [ "Grow Direction", "Rect", "Size Flags" ]
 
-[node name="Again?" type="Label" parent="." index="8"]
+[node name="Again?" type="Label" parent="GUI" index="3"]
 
 editor/display_folded = true
 visible = false
@@ -230,7 +274,7 @@ mouse_filter = 2
 mouse_default_cursor_shape = 0
 size_flags_horizontal = 1
 size_flags_vertical = 4
-theme = ExtResource( 8 )
+theme = ExtResource( 10 )
 text = "Again?"
 align = 2
 percent_visible = 1.0
@@ -238,14 +282,14 @@ lines_skipped = 0
 max_lines_visible = -1
 _sections_unfolded = [ "Anchor", "Grow Direction", "Theme" ]
 
-[node name="Timer" type="Timer" parent="Again?" index="0"]
+[node name="Timer" type="Timer" parent="GUI/Again?" index="0"]
 
 process_mode = 1
 wait_time = 1.0
 one_shot = true
 autostart = false
 
-[node name="Centered Container" type="CenterContainer" parent="." index="9"]
+[node name="Centered Container" type="CenterContainer" parent="GUI" index="4"]
 
 editor/display_folded = true
 visible = false
@@ -263,7 +307,7 @@ size_flags_vertical = 1
 use_top_left = true
 _sections_unfolded = [ "Margin", "Visibility" ]
 
-[node name="Centered Text" type="Label" parent="Centered Container" index="0"]
+[node name="Centered Text" type="Label" parent="GUI/Centered Container" index="0"]
 
 anchor_left = 0.0
 anchor_top = 0.0
@@ -279,7 +323,7 @@ mouse_filter = 2
 mouse_default_cursor_shape = 0
 size_flags_horizontal = 4
 size_flags_vertical = 4
-theme = ExtResource( 8 )
+theme = ExtResource( 10 )
 text = "Game Over"
 align = 1
 valign = 1
@@ -288,38 +332,19 @@ lines_skipped = 0
 max_lines_visible = -1
 _sections_unfolded = [ "Anchor", "Grow Direction", "Margin", "Rect", "Size Flags", "Visibility" ]
 
-[node name="EnemySpawn" type="Timer" parent="." index="10"]
-
-process_mode = 1
-wait_time = 1.25
-one_shot = false
-autostart = true
-script = ExtResource( 12 )
-track_path = NodePath("../Player")
-
-[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="." index="11"]
-
-stream = ExtResource( 13 )
-volume_db = 0.0
-pitch_scale = 1.0
-autoplay = true
-mix_target = 0
-bus = "Master"
-_sections_unfolded = [ "Pause" ]
-
 [connection signal="alarm" from="Player/Temperature" to="Background" method="_on_Temperature_alarm"]
 
-[connection signal="alarm" from="Player/Temperature" to="State" method="_on_Temperature_alarm"]
+[connection signal="alarm" from="Player/Temperature" to="GUI/Temperature" method="_on_Temperature_alarm"]
 
-[connection signal="alarm" from="Player/Temperature" to="Temperature" method="_on_Temperature_alarm"]
+[connection signal="alarm" from="Player/Temperature" to="GUI/State" method="_on_Temperature_alarm"]
 
-[connection signal="changed" from="Player/Temperature" to="Temperature" method="_on_Temperature_changed"]
+[connection signal="changed" from="Player/Temperature" to="GUI/Temperature" method="_on_Temperature_changed"]
 
 [connection signal="end_alarm" from="Player/Temperature" to="Background" method="_on_Temperature_end_alarm"]
 
-[connection signal="end_alarm" from="Player/Temperature" to="State" method="_on_Temperature_end_alarm"]
+[connection signal="end_alarm" from="Player/Temperature" to="GUI/Temperature" method="_on_Temperature_end_alarm"]
 
-[connection signal="end_alarm" from="Player/Temperature" to="Temperature" method="_on_Temperature_end_alarm"]
+[connection signal="end_alarm" from="Player/Temperature" to="GUI/State" method="_on_Temperature_end_alarm"]
 
 [connection signal="died" from="Player/Health" to="." method="_on_Player_died"]
 
@@ -327,9 +352,9 @@ _sections_unfolded = [ "Pause" ]
 
 [connection signal="hit" from="Player/Health" to="Camera" method="_on_hit"]
 
-[connection signal="timeout" from="Again?/Timer" to="." method="_on_repeat_again"]
-
 [connection signal="timeout" from="EnemySpawn" to="EnemySpawn" method="_on_timeout"]
+
+[connection signal="timeout" from="GUI/Again?/Timer" to="." method="_on_repeat_again"]
 
 
 [editable path="Player"]
