@@ -1,5 +1,6 @@
 extends Node2D
 
+signal initialize(widget, current_value, min_value, max_value)
 signal changed(temperature)
 signal alarm(name, cold)
 signal end_alarm()
@@ -32,7 +33,7 @@ var temperature = StateLimit[State.NORMAL] setget set_temperature
 
 
 func _ready():
-	call_deferred('emit_signal', 'changed', temperature)
+	call_deferred('emit_signal', 'initialize', self, temperature, MIN, MAX)
 
 
 func hit(value):
@@ -70,9 +71,3 @@ func temperature_to_state(value):
 		return State.HYPERPYREXIA
 
 	return State.FEVER
-
-
-func bind_to(thermometer):
-	thermometer.set_min_value(MIN)
-	thermometer.set_max_value(MAX)
-	connect("changed", thermometer, "set_current_value")

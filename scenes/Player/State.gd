@@ -5,7 +5,12 @@ func _ready():
 	visible = false
 
 
-func _on_Temperature_alarm(name, cold):
+func bindTo(widget):
+	widget.connect("alarm", self, "_on_alarm")
+	widget.connect("end_alarm", self, "_on_end_alarm")
+
+
+func _on_alarm(name, cold):
 	$AnimationPlayer.play("Blink")
 	text = name
 	visible = true
@@ -15,6 +20,6 @@ func _on_Temperature_alarm(name, cold):
 		modulate = Color(1.0, 0.0, 0.0)
 
 
-func _on_Temperature_end_alarm():
+func _on_end_alarm():
 	visible = false
 	$AnimationPlayer.stop()
