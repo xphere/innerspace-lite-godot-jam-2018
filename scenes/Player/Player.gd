@@ -14,7 +14,10 @@ var rotation_intent = 0
 var rotation_velocity = 0
 
 
-func _input(delta):
+func _input(event):
+	if Input.is_key_pressed(KEY_ESCAPE):
+		get_tree().quit()
+
 	rotation_intent = int(Input.is_action_pressed("rotate_right")) - int(Input.is_action_pressed("rotate_left"))
 
 

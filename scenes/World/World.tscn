@@ -73,6 +73,7 @@ script = ExtResource( 3 )
 
 [node name="Player" parent="." index="2" instance=ExtResource( 4 )]
 
+editor/display_folded = true
 _sections_unfolded = [ "Transform" ]
 
 [node name="Left Shield" parent="Player" index="1"]
@@ -105,12 +106,14 @@ track_path = NodePath("../Player")
 stream = ExtResource( 6 )
 volume_db = 0.0
 pitch_scale = 1.0
-autoplay = true
+autoplay = false
 mix_target = 0
 bus = "Master"
 _sections_unfolded = [ "Pause" ]
 
 [node name="GUI" parent="." index="5" instance=ExtResource( 7 )]
+
+editor/display_folded = true
 
 [node name="Again?" parent="GUI" index="3"]
 
