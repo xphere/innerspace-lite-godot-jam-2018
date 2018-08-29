@@ -10,8 +10,8 @@ config_version=3
 
 [application]
 
-config/name="GodotJam2018"
-run/main_scene="res://scenes/GUI/Menu.tscn"
+config/name="Innerspace Lite"
+run/main_scene="res://scenes/Logo/Logo.tscn"
 config/icon="res://icon.png"
 
 [display]
